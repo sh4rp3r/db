@@ -50,39 +50,57 @@ CREATE INDEX idx_results_place ON results(place);
 CREATE INDEX idx_schedule_date ON schedule(start_date);
 CREATE INDEX idx_results_participant ON results(participant_id);
 
-CREATE OR REPLACE VIEW v_countries AS
-SELECT country_id, name
-FROM countries;
+CREATE OR REPLACE VIEW v_medal_count_by_country AS
+SELECT 
+    c.country_id,
+    c.name AS country_name,
+    SUM(CASE WHEN r.place = 1 THEN 1 ELSE 0 END) AS gold_medals,
+    SUM(CASE WHEN r.place = 2 THEN 1 ELSE 0 END) AS silver_medals,
+    SUM(CASE WHEN r.place = 3 THEN 1 ELSE 0 END) AS bronze_medals,
+    COUNT(CASE WHEN r.place <= 3 THEN 1 END) AS total_medals
+FROM countries c
+LEFT JOIN participants p ON c.country_id = p.country_id
+LEFT JOIN results r ON p.participant_id = r.participant_id AND r.place <= 3
+GROUP BY c.country_id, c.name;
 
-CREATE OR REPLACE VIEW v_participants_full AS
-SELECT p.participant_id,
-       p.full_name,
-       p.gender,
-       p.birth_date,
-       c.country_id,
-       c.name AS country_name,
-       s.sport_id,
-       s.name AS sport_name,
-       s.is_team
-FROM participants p
-JOIN countries c ON p.country_id = c.country_id
-JOIN sports s ON p.sport_id = s.sport_id;
-
-CREATE OR REPLACE VIEW v_results_summary AS
-SELECT c.country_id,
-       c.name AS country_name,
-       s.sport_id,
-       s.name AS sport_name,
-       COUNT(r.result_id) AS participants_count,
-       SUM(CASE WHEN r.place = 1 THEN 1 ELSE 0 END) AS gold_medals,
-       SUM(CASE WHEN r.place = 2 THEN 1 ELSE 0 END) AS silver_medals,
-       SUM(CASE WHEN r.place = 3 THEN 1 ELSE 0 END) AS bronze_medals
+CREATE OR REPLACE VIEW v_athlete_results AS
+SELECT 
+    p.participant_id,
+    p.full_name,
+    p.birth_date,
+    p.gender,
+    c.name AS country_name,
+    s.name AS sport_name,
+    r.place,
+    r.score
 FROM results r
 JOIN participants p ON r.participant_id = p.participant_id
 JOIN countries c ON p.country_id = c.country_id
+JOIN sports s ON r.sport_id = s.sport_id;
+
+CREATE OR REPLACE VIEW v_average_ages AS
+SELECT 
+    s.sport_id,
+    s.name AS sport_name,
+    ROUND(AVG(EXTRACT(YEAR FROM AGE(CURRENT_DATE, p.birth_date)))::numeric, 2) AS avg_age,
+    COUNT(p.participant_id) AS participants_count
+FROM participants p
 JOIN sports s ON p.sport_id = s.sport_id
-GROUP BY c.country_id, c.name, s.sport_id, s.name
-HAVING COUNT(r.result_id) > 0;
+GROUP BY s.sport_id, s.name;
+
+CREATE OR REPLACE VIEW v_schedule_by_venue AS
+SELECT 
+    sch.start_date,
+    sch.start_time,
+    v.venue_id,
+    v.name AS venue_name,
+    v.location,
+    s.sport_id,
+    s.name AS sport_name
+FROM schedule sch
+JOIN venues v ON sch.venue_id = v.venue_id
+JOIN sports s ON sch.sport_id = s.sport_id
+ORDER BY sch.start_date, sch.start_time, v.name;
 
 INSERT INTO countries (name) VALUES
 ('CountryA'), ('CountryB')
