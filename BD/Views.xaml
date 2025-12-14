@@ -1,0 +1,194 @@
+﻿<Page x:Class="BD.Views"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+      xmlns:local="clr-namespace:BD"
+      mc:Ignorable="d" 
+      d:DesignHeight="450" d:DesignWidth="800"
+      Title="Views">
+
+    <Grid Margin="20">
+        <StackPanel HorizontalAlignment="Center" 
+                    VerticalAlignment="Center">
+
+            <TextBlock Text="Отчеты"
+                      FontSize="32"
+                      FontWeight="Bold"
+                      Foreground="#9B59B6"
+                      HorizontalAlignment="Center"
+                      Margin="0,0,0,40"/>
+
+            <!-- Кнопка назад -->
+            <Button Content="← Назад на главную"
+                    Height="45"
+                    Width="250"
+                    Margin="0,0,0,30"
+                    FontSize="15"
+                    FontWeight="Medium"
+                    Foreground="White"
+                    Background="#95A5A6"
+                    BorderThickness="0"
+                    Cursor="Hand"
+                    Click="BackButton_Click">
+                <Button.Template>
+                    <ControlTemplate TargetType="Button">
+                        <Border Background="{TemplateBinding Background}"
+                                CornerRadius="8"
+                                Padding="15,10">
+                            <ContentPresenter HorizontalAlignment="Center" 
+                                            VerticalAlignment="Center"/>
+                        </Border>
+                    </ControlTemplate>
+                </Button.Template>
+                <Button.Style>
+                    <Style TargetType="Button">
+                        <Style.Triggers>
+                            <Trigger Property="IsMouseOver" Value="True">
+                                <Setter Property="Background" Value="#7F8C8D"/>
+                            </Trigger>
+                        </Style.Triggers>
+                    </Style>
+                </Button.Style>
+            </Button>
+
+            <!-- Кнопки отчетов -->
+            <Border Background="White"
+                    CornerRadius="12"
+                    Padding="40"
+                    Margin="20">
+                <Border.Effect>
+                    <DropShadowEffect Color="#CCCCCC" 
+                                    BlurRadius="15" 
+                                    ShadowDepth="3" 
+                                    Opacity="0.3"/>
+                </Border.Effect>
+
+                <StackPanel Width="400">
+                    <Button Content="🏅 Медальный зачет по странам"
+                            Height="60"
+                            Margin="0,0,0,15"
+                            FontSize="16"
+                            FontWeight="Medium"
+                            Foreground="White"
+                            Background="#E67E22"
+                            BorderThickness="0"
+                            Cursor="Hand"
+                            Click="MedalReport_Click">
+                        <Button.Template>
+                            <ControlTemplate TargetType="Button">
+                                <Border Background="{TemplateBinding Background}"
+                                        CornerRadius="8"
+                                        Padding="15,10">
+                                    <ContentPresenter HorizontalAlignment="Center" 
+                                                    VerticalAlignment="Center"/>
+                                </Border>
+                            </ControlTemplate>
+                        </Button.Template>
+                        <Button.Style>
+                            <Style TargetType="Button">
+                                <Style.Triggers>
+                                    <Trigger Property="IsMouseOver" Value="True">
+                                        <Setter Property="Background" Value="#D35400"/>
+                                    </Trigger>
+                                </Style.Triggers>
+                            </Style>
+                        </Button.Style>
+                    </Button>
+
+                    <Button Content="👤 Результаты спортсменов"
+                            Height="60"
+                            Margin="0,0,0,15"
+                            FontSize="16"
+                            FontWeight="Medium"
+                            Foreground="White"
+                            Background="#3498DB"
+                            BorderThickness="0"
+                            Cursor="Hand"
+                            Click="AthleteReport_Click">
+                        <Button.Template>
+                            <ControlTemplate TargetType="Button">
+                                <Border Background="{TemplateBinding Background}"
+                                        CornerRadius="8"
+                                        Padding="15,10">
+                                    <ContentPresenter HorizontalAlignment="Center" 
+                                                    VerticalAlignment="Center"/>
+                                </Border>
+                            </ControlTemplate>
+                        </Button.Template>
+                        <Button.Style>
+                            <Style TargetType="Button">
+                                <Style.Triggers>
+                                    <Trigger Property="IsMouseOver" Value="True">
+                                        <Setter Property="Background" Value="#2980B9"/>
+                                    </Trigger>
+                                </Style.Triggers>
+                            </Style>
+                        </Button.Style>
+                    </Button>
+
+                    <Button Content="📊 Средний возраст по видам спорта"
+                            Height="60"
+                            Margin="0,0,0,15"
+                            FontSize="16"
+                            FontWeight="Medium"
+                            Foreground="White"
+                            Background="#27AE60"
+                            BorderThickness="0"
+                            Cursor="Hand"
+                            Click="AgeReport_Click">
+                        <Button.Template>
+                            <ControlTemplate TargetType="Button">
+                                <Border Background="{TemplateBinding Background}"
+                                        CornerRadius="8"
+                                        Padding="15,10">
+                                    <ContentPresenter HorizontalAlignment="Center" 
+                                                    VerticalAlignment="Center"/>
+                                </Border>
+                            </ControlTemplate>
+                        </Button.Template>
+                        <Button.Style>
+                            <Style TargetType="Button">
+                                <Style.Triggers>
+                                    <Trigger Property="IsMouseOver" Value="True">
+                                        <Setter Property="Background" Value="#229954"/>
+                                    </Trigger>
+                                </Style.Triggers>
+                            </Style>
+                        </Button.Style>
+                    </Button>
+
+                    <Button Content="📅 Расписание по местам проведения"
+                            Height="60"
+                            FontSize="16"
+                            FontWeight="Medium"
+                            Foreground="White"
+                            Background="#9B59B6"
+                            BorderThickness="0"
+                            Cursor="Hand"
+                            Click="ScheduleReport_Click">
+                        <Button.Template>
+                            <ControlTemplate TargetType="Button">
+                                <Border Background="{TemplateBinding Background}"
+                                        CornerRadius="8"
+                                        Padding="15,10">
+                                    <ContentPresenter HorizontalAlignment="Center" 
+                                                    VerticalAlignment="Center"/>
+                                </Border>
+                            </ControlTemplate>
+                        </Button.Template>
+                        <Button.Style>
+                            <Style TargetType="Button">
+                                <Style.Triggers>
+                                    <Trigger Property="IsMouseOver" Value="True">
+                                        <Setter Property="Background" Value="#8E44AD"/>
+                                    </Trigger>
+                                </Style.Triggers>
+                            </Style>
+                        </Button.Style>
+                    </Button>
+                </StackPanel>
+            </Border>
+        </StackPanel>
+    </Grid>
+</Page>

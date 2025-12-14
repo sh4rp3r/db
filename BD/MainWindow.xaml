@@ -1,0 +1,139 @@
+﻿<Window x:Class="BD.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        Title="Современное приложение" 
+        Height="700" 
+        Width="500"
+        Background="#F5F5F5">
+
+    <Window.Resources>
+        <!-- Стиль для заголовков блоков -->
+        <Style x:Key="BlockHeaderStyle" TargetType="TextBlock">
+            <Setter Property="FontSize" Value="24"/>
+            <Setter Property="FontWeight" Value="SemiBold"/>
+            <Setter Property="Foreground" Value="#2C3E50"/>
+            <Setter Property="Margin" Value="0,0,0,20"/>
+            <Setter Property="HorizontalAlignment" Value="Center"/>
+        </Style>
+
+        <!-- Современный стиль кнопок (синие) -->
+        <Style x:Key="ModernButtonStyle" TargetType="Button">
+            <Setter Property="Height" Value="50"/>
+            <Setter Property="Width" Value="280"/>
+            <Setter Property="FontSize" Value="16"/>
+            <Setter Property="FontWeight" Value="Medium"/>
+            <Setter Property="Foreground" Value="White"/>
+            <Setter Property="Background" Value="#3498DB"/>
+            <Setter Property="BorderThickness" Value="0"/>
+            <Setter Property="Cursor" Value="Hand"/>
+            <Setter Property="Margin" Value="0,8,0,8"/>
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="Button">
+                        <Border Background="{TemplateBinding Background}"
+                                CornerRadius="8"
+                                Padding="15,10">
+                            <ContentPresenter HorizontalAlignment="Center" 
+                                            VerticalAlignment="Center"/>
+                        </Border>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+            <Style.Triggers>
+                <Trigger Property="IsMouseOver" Value="True">
+                    <Setter Property="Background" Value="#2980B9"/>
+                </Trigger>
+                <Trigger Property="IsPressed" Value="True">
+                    <Setter Property="Background" Value="#1F6A9E"/>
+                </Trigger>
+            </Style.Triggers>
+        </Style>
+
+        <!-- Современный стиль кнопок (фиолетовые) -->
+        <Style x:Key="ModernButtonPurpleStyle" TargetType="Button" BasedOn="{StaticResource ModernButtonStyle}">
+            <Setter Property="Background" Value="#9B59B6"/>
+            <Style.Triggers>
+                <Trigger Property="IsMouseOver" Value="True">
+                    <Setter Property="Background" Value="#8E44AD"/>
+                </Trigger>
+                <Trigger Property="IsPressed" Value="True">
+                    <Setter Property="Background" Value="#71368A"/>
+                </Trigger>
+            </Style.Triggers>
+        </Style>
+
+        <!-- Стиль контейнера блока -->
+        <Style x:Key="BlockContainerStyle" TargetType="Border">
+            <Setter Property="Background" Value="White"/>
+            <Setter Property="CornerRadius" Value="12"/>
+            <Setter Property="Padding" Value="30"/>
+            <Setter Property="Margin" Value="20"/>
+            <Setter Property="Effect">
+                <Setter.Value>
+                    <DropShadowEffect Color="#CCCCCC" 
+                                    BlurRadius="15" 
+                                    ShadowDepth="3" 
+                                    Opacity="0.3"/>
+                </Setter.Value>
+            </Setter>
+        </Style>
+    </Window.Resources>
+    <Frame x:Name="MainFrame" NavigationUIVisibility="Hidden">
+        <Frame.Content>
+            <ScrollViewer VerticalScrollBarVisibility="Auto">
+                <StackPanel HorizontalAlignment="Center" 
+                            VerticalAlignment="Center"
+                            Margin="0,40">
+
+                    <Border Style="{StaticResource BlockContainerStyle}">
+                        <StackPanel>
+                            <TextBlock Text="Управление таблицами" 
+                                     Style="{StaticResource BlockHeaderStyle}"/>
+
+                            <Button Content="Страны" 
+                                    Style="{StaticResource ModernButtonStyle}"
+                                    Click="CountriesClick"/>
+
+                            <Button Content="Виды спорта" 
+                                    Style="{StaticResource ModernButtonStyle}"
+                                    Click="SportsClick"/>
+
+                            <Button Content="Участники" 
+                                    Style="{StaticResource ModernButtonStyle}"
+                                    Click="ParticipantsClick"/>
+
+                            <Button Content="Расписание стартов" 
+                                    Style="{StaticResource ModernButtonStyle}"
+                                    Click="ScheduleClick"/>
+
+                            <Button Content="Спортивные площадки" 
+                                    Style="{StaticResource ModernButtonStyle}"
+                                    Click="VenuesClick"/>
+
+                            <Button Content="Результаты" 
+                                    Style="{StaticResource ModernButtonStyle}"
+                                    Click="ResultsClick"/>
+
+                            <Button Content="Добавить участника с результатами" 
+                                    Style="{StaticResource ModernButtonStyle}"
+                                    Background="#16A085"
+                                    Click="OpenCompositeFormClick"/>
+
+                        </StackPanel>
+                    </Border>
+
+                    <Border Style="{StaticResource BlockContainerStyle}">
+                        <StackPanel>
+
+                            <Button Content="Отчёты" 
+                                    Style="{StaticResource ModernButtonPurpleStyle}"
+                                    Click="ViewsClick"/>
+
+                        </StackPanel>
+                    </Border>
+
+                </StackPanel>
+            </ScrollViewer>
+        </Frame.Content>
+    </Frame>
+</Window>
